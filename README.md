@@ -44,7 +44,7 @@ cc-patcher is a shell script that applies modular patches to Claude Code binary 
 ### Compatibility
 
 **Tested Version:**
-- Claude Code v2.0.13
+- Claude Code v2.0.14
 
 **Note:** This patcher is designed to work with Claude Code binary files. Pattern matching is version-specific, and compatibility may vary with different Claude Code versions. Always create backups before applying patches.
 
@@ -190,10 +190,10 @@ This tool is provided as-is for educational and research purposes. The authors a
 
 ## Changelog
 
-### Version 1.0.1
+### Version 1.0.2
 - Initial release
 - Three core patch modules: context_limit, security_context_clean, temperature_setting
 - Automatic backup functionality
 - Pattern validation system
 - Cross-platform compatibility
-- Support for v2.0.13
+- Support for v2.0.14

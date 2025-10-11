@@ -18,7 +18,7 @@
 set -euo pipefail
 
 # Script version - follows semantic versioning
-VERSION="1.0.0"
+VERSION="1.0.2"
 
 # Display banner function
 # Shows the ASCII art banner for branding and visual identification
@@ -162,9 +162,9 @@ init_modules() {
     # Second pattern removes specific code sequence that triggers security checks
     register_module "security_context_clean" \
         "Cleans security-related context" \
-        '\$\{d\$Q\}' \
-        '${process.env.CLAUDE_PERSISTENT_PROMPT?process.env.CLAUDE_PERSISTENT_PROMPT:d$Q}' \
-        '\+ek6;else Q=A.file' \
+        '\$\{s\$Q\}' \
+        '${process.env.CLAUDE_PERSISTENT_PROMPT?process.env.CLAUDE_PERSISTENT_PROMPT:s$Q}' \
+        '\+Yx6;else Q=A.file' \
         ";else Q=A.file"
     
     # Temperature Setting Module - Allows setting custom temperature via environment variable
