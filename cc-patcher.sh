@@ -18,7 +18,7 @@
 set -euo pipefail
 
 # Script version - follows semantic versioning
-VERSION="1.0.3"
+VERSION="1.0.4"
 
 # Display banner function
 # Shows the ASCII art banner for branding and visual identification
@@ -153,8 +153,8 @@ init_modules() {
     # Enhancement adds environment variable support while preserving original logic
     register_module "context_limit" \
         "Increases Claude Code context limit by modifying function return value" \
-        'function wO\(A\)\{if\(A\.includes\("\[1m\]"\)\)return 1e6;return 200000\}' \
-        'function wO(A){if(A.includes("[1m]"))return 1e6;if(process.env.CLAUDE_CONTEXT_LIMIT)return Number(process.env.CLAUDE_CONTEXT_LIMIT);return 200000}'
+        'function VR\(A\)\{if\(A\.includes\("\[1m\]"\)\)return 1e6;return 200000\}' \
+        'function VR(A){if(A.includes("[1m]"))return 1e6;if(process.env.CLAUDE_CONTEXT_LIMIT)return Number(process.env.CLAUDE_CONTEXT_LIMIT);return 200000}'
 
     # Security Context Clean Module - Cleans security-related context
     # Uses two-pattern approach to modify template handling and file processing
@@ -162,21 +162,10 @@ init_modules() {
     # Second pattern removes specific code sequence that triggers security checks
     register_module "security_context_clean" \
         "Cleans security-related context" \
-        'rOQ=Hw8' \
-        'rOQ=process.env.CLAUDE_PERSISTENT_PROMPT?process.env.CLAUDE_PERSISTENT_PROMPT:Hw8' \
-        '\+YN8;else Q=A.file' \
+        '\$\{lbQ\}' \
+        '${process.env.CLAUDE_PERSISTENT_PROMPT?process.env.CLAUDE_PERSISTENT_PROMPT:lbQ}' \
+        '\+Jf8;else Q=A.file' \
         ";else Q=A.file"
-    
-    # Temperature Setting Module - Allows setting custom temperature via environment variable
-    # Implements sophisticated conditional logic for mode-specific temperature settings
-    # First pattern modifies temperature parameter injection with fallback chain
-    # Second pattern captures mode setting for conditional temperature application
-    register_module "temperature_setting" \
-        "Allows setting custom temperature via environment variable" \
-        'd.model\),temperature:F,system:I,tools' \
-        "d.model),temperature:process.env.CLAUDE_CURRENT_MODE==='plan'\&\&process.env.CLAUDE_PLAN_TEMPERATURE?Number(process.env.CLAUDE_PLAN_TEMPERATURE):process.env.CLAUDE_TEMPERATURE?Number(process.env.CLAUDE_TEMPERATURE):F,system:I,tools" \
-        '\],permissionMode:d.mode,promptCategory:Y' \
-        '],permissionMode:(process.env.CLAUDE_CURRENT_MODE=d.mode,d.mode),promptCategory:Y'
 }
 
 # List available modules

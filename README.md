@@ -10,7 +10,6 @@ cc-patcher is a shell script that applies modular patches to Claude Code binary 
 
 - **Context Limit Enhancement**: Increases Claude Code's context limit through environment variable configuration
 - **Security Context Cleaning**: Removes security-related context restrictions for enhanced functionality
-- **Temperature Control**: Allows custom temperature settings via environment variables
 - **Modular Design**: Apply individual patches or all at once
 - **Automatic Backups**: Creates timestamped backups before patching
 - **Pattern Validation**: Validates all patterns exist before applying changes
@@ -43,7 +42,8 @@ cc-patcher is a shell script that applies modular patches to Claude Code binary 
 
 ### Compatibility
 
-**Tested Version:**
+**Tested Versions:**
+- Claude Code v2.0.25
 - Claude Code v2.0.19
 
 **Note:** This patcher is designed to work with Claude Code binary files. Pattern matching is version-specific, and compatibility may vary with different Claude Code versions. Always create backups before applying patches.
@@ -59,7 +59,7 @@ Apply all available patches to a binary:
 
 Apply specific modules:
 ```bash
-./cc-patcher.sh --binary /path/to/claude-code-binary --modules context_limit,temperature_setting
+./cc-patcher.sh --binary /path/to/claude-code-binary --modules context_limit,security_context_clean
 ```
 
 ### Command Line Options
@@ -89,7 +89,7 @@ Apply specific modules:
 
 4. **Apply multiple specific modules:**
    ```bash
-   ./cc-patcher.sh -b ./claude-code -m context_limit,temperature_setting
+   ./cc-patcher.sh -b ./claude-code -m context_limit,security_context_clean
    ```
 
 ## Available Modules
@@ -110,31 +110,11 @@ export CLAUDE_CONTEXT_LIMIT=1000000
 Cleans security-related context restrictions by modifying DTB template handling and file processing logic.
 
 **Environment Variables:**
-- `CLAUDE_PERSISTENT_PROMPT`: Set custom persistent prompt (fallback to DTB if not set)
+- `CLAUDE_PERSISTENT_PROMPT`: Set custom persistent prompt (fallback to lbQ if not set)
 
 **Example:**
 ```bash
 export CLAUDE_PERSISTENT_PROMPT="Your custom system prompt"
-./claude-code
-```
-
-### temperature_setting
-Allows setting custom temperature values via environment variables, with support for different modes.
-
-**Environment Variables:**
-- `CLAUDE_TEMPERATURE`: Set global temperature (0.0-1.0)
-- `CLAUDE_PLAN_TEMPERATURE`: Set temperature for plan mode
-- `CLAUDE_CURRENT_MODE`: Current mode detection (automatically set)
-
-**Examples:**
-```bash
-# Set global temperature
-export CLAUDE_TEMPERATURE=0.7
-./claude-code
-
-# Set different temperature for plan mode
-export CLAUDE_TEMPERATURE=0.5
-export CLAUDE_PLAN_TEMPERATURE=0.9
 ./claude-code
 ```
 
@@ -192,11 +172,16 @@ This tool is provided as-is for educational and research purposes. The authors a
 
 ### Version 1.0.2
 - Initial release
-- Three core patch modules: context_limit, security_context_clean, temperature_setting
+- Two core patch modules: context_limit, security_context_clean
 - Automatic backup functionality
 - Pattern validation system
 - Cross-platform compatibility
 - Support for v2.0.14
+
+### Version 1.0.4
+- Removed temperature_setting module due to hardcoded temperature value in Claude Code binary
+- Updated pattern matching for v2.0.25 compatibility
+- Added support for v2.0.25
 
 ### Version 1.0.3
 - Added support for v2.0.19
